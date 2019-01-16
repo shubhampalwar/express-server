@@ -1,0 +1,21 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "PatternDiamond": "nodemon Extra/Patterns/Diamond.js",
+    "PatternTriangle" :"nodemon Extra/Patterns/EquilateralTriangle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhampalwar/express-server.git"
+  },
+  "author": "Shubham Palwar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubhampalwar/express-server/issues"
+  },
+  "homepage": "https://github.com/shubhampalwar/express-server#readme"
+}
