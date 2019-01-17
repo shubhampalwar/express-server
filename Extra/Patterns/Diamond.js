@@ -1,4 +1,4 @@
-function Diamond(n) {
+function diamondPattern(n) {
   console.log('Printing diamond of '+n+' rows....');
   let pattern = '';
   for(let i = 1; i <= n; i++) {
@@ -22,4 +22,4 @@ function Diamond(n) {
     pattern = '';
   }
 }
-Diamond(5);
+diamondPattern(5);

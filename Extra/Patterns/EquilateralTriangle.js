@@ -1,4 +1,4 @@
-function Triangle(n) {
+function trianglePattern(n) {
   console.log('Printing Equilateral Triangle of '+n+' rows....');
   let pattern = '';
   for(let i = 1; i <= n; i++) {
@@ -12,4 +12,4 @@ function Triangle(n) {
     pattern = '';
   }
 }
-Triangle(10);
+trianglePattern(10);
