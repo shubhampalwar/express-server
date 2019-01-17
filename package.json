@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "PatternDiamond": "nodemon Extra/Patterns/Diamond.js",
-    "PatternTriangle" :"nodemon Extra/Patterns/EquilateralTriangle.js",
+    "PatternTriangle": "nodemon Extra/Patterns/EquilateralTriangle.js",
+    "UtilsValidation": "nodemon Extra/utils/validation.js",
+    "UtilsPermissions": "nodemon Extra/utils/permissions.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
