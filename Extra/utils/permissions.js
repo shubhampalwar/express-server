@@ -14,10 +14,10 @@ const permissions = {
 function hasPermission(moduleName, role, permissionType) {
   if (
     permissions[moduleName] &&
-    (role == "head-trainer" ||
+    (permissions[moduleName]['all'].includes(role) ||
       permissions[moduleName][permissionType].includes(role))
   ) {
     console.log("true");
   } else console.log("false");
 }
-hasPermission("getUsers", "head-trainer", "all");
+hasPermission("getUsers", "head-trainer", "delete");
