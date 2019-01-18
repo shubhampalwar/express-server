@@ -1,23 +1,17 @@
-const getUser = "getUser",
-  headTrainer = "head-trainer",
-  trainee = "trainee",
-  trainer = "trainer";
-const permissions = {
-  getUsers: {
-    all: [headTrainer],
-    read: [trainee, trainer],
-    write: [trainer],
-    delete: []
-  }
-};
-
-function hasPermission(moduleName, role, permissionType) {
+import {
+  permissions,
+  getUsers,
+  headTrainer,
+  trainee,
+  trainer
+} from "../constants";
+export default function hasPermission(moduleName, role, permissionType) {
+  console.log("\nhas permission ?\n");
   if (
     permissions[moduleName] &&
-    (permissions[moduleName]['all'].includes(role) ||
+    (permissions[moduleName]["all"].includes(role) ||
       permissions[moduleName][permissionType].includes(role))
   ) {
-    console.log("true");
-  } else console.log("false");
+    console.log("true \n");
+  } else console.log("false \n");
 }
-hasPermission("getUsers", "head-trainer", "delete");
