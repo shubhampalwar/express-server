@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "PatternDiamond": "nodemon Extra/Patterns/Diamond.js",
-    "PatternTriangle" :"nodemon Extra/Patterns/EquilateralTriangle.js",
+    "Pattern:Diamond": "nodemon Extra/Patterns/Diamond.js",
+    "Pattern:Triangle": "nodemon Extra/Patterns/EquilateralTriangle.js",
+    "Utils:Validation": "nodemon Extra/utils/validation.js",
+    "Utils:Permissions": "nodemon Extra/utils/permissions.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
