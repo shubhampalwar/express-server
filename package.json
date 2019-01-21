@@ -4,11 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "Pattern:Diamond": "nodemon Extra/Patterns/Diamond.js",
-    "Pattern:Triangle": "nodemon Extra/Patterns/EquilateralTriangle.js",
-    "Utils:Validation": "nodemon Extra/utils/validation.js",
-    "Utils:Permissions": "nodemon Extra/utils/permissions.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "babel-node Extra --presets env"
   },
   "repository": {
     "type": "git",
@@ -19,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/shubhampalwar/express-server/issues"
   },
-  "homepage": "https://github.com/shubhampalwar/express-server#readme"
+  "homepage": "https://github.com/shubhampalwar/express-server#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
 }

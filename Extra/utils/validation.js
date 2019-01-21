@@ -1,23 +1,6 @@
-const users = [
-  {
-    traineeEmail: "trainee1@successive.tech",
-    reviewerEmail: "reviewer1@successive.tech"
-  },
-  {
-    traineeEmail: "trainee1@successiv.tech",
-    reviewerEmail: "reviewer1@successie.tech"
-  },
-  {
-    traineeEmail: "trainee1@successive.tech",
-    reviewerEmail: "reviewer1@successive.tech"
-  }
-];
-function validateEmail(email) {
-  const regex = /^\w+@successive.tech$/;
-  return regex.test(email);
-}
+import { validateEmail } from "./helper";
 
-function validateUsers(userss) {
+export default function validateUsers(userss) {
   let validUsers = [];
   let invalidUsers = [];
   userss.forEach(function(user) {
@@ -50,4 +33,3 @@ function printUsers(validUsers, invalidUsers) {
   });
   console.log("No.of invalid users are: " + invalidUsers.length);
 }
-validateUsers(users);
