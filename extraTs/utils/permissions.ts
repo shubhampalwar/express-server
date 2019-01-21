@@ -1,6 +1,6 @@
 import {
   permissions,
-  getUser,
+  getUsers,
   setUsers,
   getEmail,
   setEmail,

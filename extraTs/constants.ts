@@ -15,7 +15,7 @@ const users: iValidation[] = [
   }
 ];
 
-const getUser: string = "getUsers",
+const getUsers: string = "getUsers",
   setUsers: string = "setUsers",
   getEmail: string = "getEmails",
   setEmail: string = "setEmail",
@@ -26,7 +26,7 @@ const getUser: string = "getUsers",
   trainer: string = "trainer";
 
 const permissions: iPermission = {
-  [getUser]: {
+  [getUsers]: {
     all: [headTrainer],
     read: [trainee, trainer],
     write: [trainer],
@@ -65,7 +65,7 @@ const permissions: iPermission = {
 };
 export {
   permissions,
-  getUser,
+  getUsers,
   setUsers,
   getEmail,
   setEmail,
