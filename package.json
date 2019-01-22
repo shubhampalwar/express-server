@@ -6,7 +6,8 @@
   "scripts": {
     "nodemon": "nodemon ./dist/index.js",
     "extra:js": "babel-node Extra --presets env",
-    "extra:ts": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
+    "Express:run": "npm run Clean:Dist && tsc-watch --project . --onSuccess \"npm run nodemon\"",
+    "Clean:Dist": "rm -rf dist/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,8 +22,13 @@
   "homepage": "https://github.com/shubhampalwar/express-server#readme",
   "dependencies": {},
   "devDependencies": {
+    "@types/dotenv": "^6.1.0",
+    "@types/express": "^4.16.0",
+    "@types/node": "^10.12.18",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
     "tsc-watch": "^1.0.31",
     "typescript": "^3.2.4"
   }
