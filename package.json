@@ -6,7 +6,7 @@
   "scripts": {
     "nodemon": "nodemon ./dist/index.js",
     "extra:js": "babel-node Extra --presets env",
-    "Express:run": "npm run Clean:Dist && tsc-watch --project . --onSuccess \"npm run nodemon\"",
+    "start": "npm run Clean:Dist && tsc-watch --project . --onSuccess \"npm run nodemon\"",
     "Clean:Dist": "rm -rf dist/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

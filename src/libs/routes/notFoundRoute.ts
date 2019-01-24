@@ -1,4 +1,12 @@
-export default function notFoundRoute(req, res, next) {
-  const error: String = "Not Found";
-  return next(error);
+import { Request, Response, NextFunction } from "express";
+export default function notFoundRoute(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  return next({
+    error: "not found",
+    message: "Not Found Route",
+    status: "404"
+  });
 }
