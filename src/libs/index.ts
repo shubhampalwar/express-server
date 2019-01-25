@@ -1,1 +1,1 @@
-export { notFoundRoute, errorHandler } from "./routes";
+export { notFoundRoute, errorHandler, successHandler } from "./routes";

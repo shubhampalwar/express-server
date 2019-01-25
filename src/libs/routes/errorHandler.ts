@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-export default function errorHandler(
-  err,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export default (err, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    return next(err);
+  }
   const { error, message, status } = err;
   res.status(status).json({
     Error: error || "Undefined",
@@ -13,4 +11,4 @@ export default function errorHandler(
     Timestamp: new Date()
   });
   next();
-}
+};

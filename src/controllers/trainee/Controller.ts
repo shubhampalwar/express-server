@@ -1,6 +1,13 @@
 import { Request, Response, NextFunction } from "express";
-import successHandler from "../../libs/routes/successHandler";
+import { successHandler } from '../../libs'
 class TraineeController {
+  private static trainee: TraineeController;
+  public static getInstance() {
+    if (!TraineeController.trainee) {
+      TraineeController.trainee = new TraineeController();
+    }
+    return TraineeController.trainee;
+  }
   get(req: Request, res: Response) {
     const data = [
       {
@@ -17,7 +24,7 @@ class TraineeController {
       .send(successHandler("Trainee fetched successfully", "OK", 200, data));
   }
 
-  post(req: Request, res: Response, next: NextFunction) {
+  create(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
     if (!name || !id) {
       return next({
@@ -49,7 +56,7 @@ class TraineeController {
       .send(successHandler("Trainee created successfully", "OK", 202, data));
   }
 
-  put(req: Request, res: Response, next) {
+  update(req: Request, res: Response, next) {
     const { name, id } = req.body;
     if (!name || !id) {
       return next({
@@ -68,16 +75,8 @@ class TraineeController {
   }
 
   delete(req: Request, res: Response, next) {
-    const { name, id } = req.body;
-    if (!name || !id) {
-      return next({
-        error: "Bad Request",
-        message: "Name or Id Required",
-        status: "400"
-      });
-    }
+    const { id } = req.params;
     const data = {
-      Name: name,
       Id: id
     };
     res
@@ -85,7 +84,4 @@ class TraineeController {
       .send(successHandler("Trainee Deleted successfully", "OK", 202, data));
   }
 }
-
-const trainee = new TraineeController();
-Object.freeze(trainee);
-export default trainee;
+export default TraineeController.getInstance();
