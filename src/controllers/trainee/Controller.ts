@@ -21,7 +21,7 @@ class TraineeController {
     ];
     res
       .status(200)
-      .send(successHandler("Trainee fetched successfully", "OK", 200, data));
+      .send(successHandler("Trainee fetched successfully", 200, data));
   }
 
   create(req: Request, res: Response, next: NextFunction) {
@@ -53,7 +53,7 @@ class TraineeController {
     };
     res
       .status(202)
-      .send(successHandler("Trainee created successfully", "OK", 202, data));
+      .send(successHandler("Trainee created successfully", 202, data));
   }
 
   update(req: Request, res: Response, next) {
@@ -71,7 +71,7 @@ class TraineeController {
     };
     res
       .status(200)
-      .send(successHandler("Trainee Modified successfully", "OK", 202, data));
+      .send(successHandler("Trainee Modified successfully", 202, data));
   }
 
   delete(req: Request, res: Response, next) {
@@ -81,7 +81,7 @@ class TraineeController {
     };
     res
       .status(200)
-      .send(successHandler("Trainee Deleted successfully", "OK", 202, data));
+      .send(successHandler("Trainee Deleted successfully", 202, data));
   }
 }
 export default TraineeController.getInstance();

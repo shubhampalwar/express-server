@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 export default (err, req: Request, res: Response, next: NextFunction) => {
+  console.log("inside error handler")
   if (res.headersSent) {
     return next(err);
   }
