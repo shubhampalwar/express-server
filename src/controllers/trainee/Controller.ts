@@ -28,7 +28,7 @@ class TraineeController {
     const { name, id } = req.body;
     const data = {
       Name: name,
-      Id: id
+      ID: id
     };
     res
       .status(202)

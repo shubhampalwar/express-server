@@ -53,7 +53,11 @@ export default config => (req, res, next) => {
     if (items && items.isObject) {
       if (validatedValue[0]) {
         if (typeof validatedValue[0] != "object") {
-          console.log("not a object");
+          return next({
+            error: "BAD_REQUEST",
+            status: 400,
+            message: `invalid object`
+          });
         }
       }
     }
