@@ -26,27 +26,6 @@ class TraineeController {
 
   create(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
-    if (!name || !id) {
-      return next({
-        error: "Bad Request",
-        message: "Name and Id Required",
-        status: "400"
-      });
-    }
-    if (!name) {
-      return next({
-        error: "Bad Request",
-        message: "Name Required",
-        status: "400"
-      });
-    }
-    if (!id) {
-      return next({
-        error: "Bad Request",
-        message: "Id Required",
-        status: "400"
-      });
-    }
     const data = {
       Name: name,
       Id: id
@@ -57,16 +36,10 @@ class TraineeController {
   }
 
   update(req: Request, res: Response, next) {
-    const { name, id } = req.body;
-    if (!name || !id) {
-      return next({
-        error: "Bad Request",
-        message: "Name or Id Required",
-        status: "400"
-      });
-    }
+    const { dataToUpdate, id } = req.body;
+
     const data = {
-      Name: name,
+      dTU: dataToUpdate,
       Id: id
     };
     res

@@ -2,16 +2,18 @@ const validation = {
   create: {
     id: {
       required: true,
-      string: true,
+      number: true,
       in: ["body"],
+      errorMessage: "ID is required",
       custom: function(value) {
         console.log("Value", value);
-        throw { error: "Error Occurred", message: "Message" };
+       // throw { error: "Error Occurred", message: "Message" };
       }
     },
     name: {
+      string: true,
       required: true,
-      regex: "",
+      regex: "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$",
       in: ["body"],
       errorMessage: "Name is required"
     }
@@ -19,6 +21,7 @@ const validation = {
   delete: {
     id: {
       required: true,
+      number: true,
       errorMessage: "Id is required",
       in: ["params"]
     }
@@ -26,7 +29,7 @@ const validation = {
   get: {
     skip: {
       required: false,
-      default: 0,
+      default: 20,
       number: true,
       in: ["query"],
       errorMessage: "Skip is invalid"
@@ -49,6 +52,7 @@ const validation = {
       in: ["body"],
       required: true,
       isObject: true,
+      errorMessage: "Error in data to updates",
       custom: function(dataToUpdate) {}
     }
   }
