@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/shubhampalwar/express-server#readme",
   "dependencies": {
-    "jsonwebtoken": "^8.4.0"
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.7"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
