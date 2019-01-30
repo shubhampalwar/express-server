@@ -1,8 +1,9 @@
 import { IConfig } from "./config";
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import { notFoundRoute, errorHandler } from "./libs";
+import { notFoundRoute, errorHandler, Database } from "./libs";
 import router from "./Router";
+
 class Server {
   public app: express.Express;
   constructor(private config: IConfig) {
@@ -26,6 +27,7 @@ class Server {
       app,
       config: { port }
     } = this;
+
     app.use("/health-check", (req, res) => {
       res.send(`I am OK.<br>App running on ${port}`);
     });
@@ -37,14 +39,18 @@ class Server {
   public run() {
     const {
       app,
-      config: { port }
+      config: { port, mongo_url }
     } = this;
-    app.listen(port, (err: Error) => {
-      if (err) {
-        throw err;
-      }
-      console.log(`App is running at port: ${port}`);
-    });
+    Database.open(mongo_url).then((resolve)=>{
+      app.listen(port, (err: Error) => {
+        if (err) {
+          throw err;
+        }
+        console.log(`App is running at port: ${port}`);
+        console.log(resolve)
+      });
+    })
+
   }
 }
 
