@@ -1,6 +1,6 @@
-export default (msg: String, success: string, status: number, data: any) => ({
+export default (msg: String, status: number, data: any) => ({
   Message: msg,
-  Success: success,
+  Success: "Ok",
   Status: status,
   Data: data
 });

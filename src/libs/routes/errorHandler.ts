@@ -4,11 +4,12 @@ export default (err, req: Request, res: Response, next: NextFunction) => {
     return next(err);
   }
   const { error, message, status } = err;
-  res.status(status).json({
-    Error: error || "Undefined",
+  const errorMsg = {
+Error: error || "Undefined",
     Message: message || "Error Occurred",
-    Status: status || "Undefined",
+    Status: status || 200,
     Timestamp: new Date()
-  });
+  }
+  res.status(status).send(errorMsg);
   next();
 };
