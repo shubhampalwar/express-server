@@ -20,7 +20,9 @@
     "url": "https://github.com/shubhampalwar/express-server/issues"
   },
   "homepage": "https://github.com/shubhampalwar/express-server#readme",
-  "dependencies": {},
+  "dependencies": {
+    "jsonwebtoken": "^8.4.0"
+  },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
     "@types/dotenv": "^6.1.0",
