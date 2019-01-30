@@ -16,6 +16,6 @@ export default function hasPermission(
     (permissions[moduleName][all].includes(role) ||
       permissions[moduleName][permissionType].includes(role))
   ) {
-    return true
+    return true;
   } else return false;
 }

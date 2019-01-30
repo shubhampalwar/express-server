@@ -13,10 +13,4 @@ const permissions: iPermission = {
     delete: []
   }
 };
-export {
-  permissions,
-  traineee,
-  headTrainer,
-  trainee,
-  trainer,
-};
+export { permissions, traineee, headTrainer, trainee, trainer };
