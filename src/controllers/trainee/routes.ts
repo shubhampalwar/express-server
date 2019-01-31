@@ -8,25 +8,25 @@ traineeRouter
   .get(
     "/",
     validationHandler(validation.get),
-    authMiddleWare("traineee", "read"),
+    authMiddleWare("trainee module", "read"),
     trainee.get
   )
   .post(
     "/",
     validationHandler(validation.create),
-    authMiddleWare("traineee", "write"),
+    authMiddleWare("trainee module", "write"),
     trainee.create
   )
   .put(
     "/",
     validationHandler(validation.update),
-    authMiddleWare("traineee", "write"),
+    authMiddleWare("trainee module", "write"),
     trainee.update
   )
   .delete(
     "/:id",
     validationHandler(validation.delete),
-    authMiddleWare("traineee", "delete"),
+    authMiddleWare("trainee module", "delete"),
     trainee.delete
   );
 export default traineeRouter;

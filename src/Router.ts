@@ -1,11 +1,8 @@
 import { Request, Response, Router } from "express";
-import traineeRouter from "./controllers";
+import {traineeRouter, userRouter} from "./controllers";
 const router = Router();
 
 router.use("/trainee", traineeRouter);
-router.use("/user", (req: Request, res: Response) => {
-  console.log("inside user Router");
-  res.send("Hello User");
-});
+router.use("/user", userRouter);
 
 export default router;

@@ -1,6 +1,7 @@
 import {
   permissions,
-  traineee,
+  traineeModule,
+  userModule,
   trainer,
   headTrainer,
   trainee

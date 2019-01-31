@@ -49,6 +49,8 @@ class Server {
         console.log(`App is running at port: ${port}`);
         console.log(resolve)
       });
+    }).catch((err)=>{
+      console.log("error", err)
     })
 
   }

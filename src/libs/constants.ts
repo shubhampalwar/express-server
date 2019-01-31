@@ -1,16 +1,23 @@
 import { iPermission } from "./interfaces";
 
-const traineee: string = "traineee",
+const traineeModule: string = "trainee module",
+  userModule: string= "user module",
   headTrainer: string = "head-trainer",
   trainee: string = "trainee",
   trainer: string = "trainer";
 
 const permissions: iPermission = {
-  [traineee]: {
+  [traineeModule]: {
+    all: [headTrainer],
+    read: [trainee, trainer],
+    write: [trainer],
+    delete: []
+  },
+  [userModule]: {
     all: [headTrainer],
     read: [trainee, trainer],
     write: [trainer],
     delete: []
   }
 };
-export { permissions, traineee, headTrainer, trainee, trainer };
+export { permissions, traineeModule,userModule, headTrainer, trainee, trainer };
