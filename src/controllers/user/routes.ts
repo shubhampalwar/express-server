@@ -3,24 +3,25 @@ import user from "./Controller";
 import validationHandler from "../../libs/routes/validationHandler";
 import validation from "./validation";
 import authMiddleWare from "../../libs/routes/authMiddleWare";
+import { userModule } from "../../libs/constants"
 const userRouter = Router();
 userRouter
   .get(
     "/",
     validationHandler(validation.get),
-    authMiddleWare("user module", "read"),
+    authMiddleWare(userModule, "read"),
     user.get
   )
   .post(
     "/",
     validationHandler(validation.create),
-    authMiddleWare("user module", "write"),
+    authMiddleWare(userModule, "write"),
     user.create
   )
   .put(
     "/",
     validationHandler(validation.update),
-    authMiddleWare("user module", "write"),
+    authMiddleWare(userModule, "write"),
     user.update
   )
   .delete(

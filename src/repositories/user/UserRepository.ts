@@ -12,9 +12,27 @@ export default class UserRepository {
   }
   public create(data): Promise<IUser> {
     console.log("inside create");
-    return this.model.create({ ...data, _id: UserRepository.generateObjectID() });
+    return this.model.create({
+      ...data,
+      _id: UserRepository.generateObjectID()
+    });
   }
-  update() {}
-  delete() {}
-  fetch() {}
+  public updateOne(data, change): mongoose.Query<IUser> {
+    return this.model.updateOne(data, change);
+  }
+  public updateMany(data, change): mongoose.Query<IUser> {
+    return this.model.updateMany(data, change);
+  }
+  public deleteOne(data): mongoose.Query<{
+    ok?: number;
+    n?: number;
+}> {
+    return this.model.deleteOne(data);
+  }
+  public deleteMany(data): mongoose.Query<{
+    ok?: number;
+    n?: number;
+}> {
+    return this.model.deleteMany(data);
+  }
 }

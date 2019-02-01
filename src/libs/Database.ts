@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import seedDate from "../libs/SeedData";
+import seedDate from "./seedData";
 export default class Database {
   static open(mongo_uri: string) {
     return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ export default class Database {
           return resolve("hello");
         })
         .catch(err => {
-            return reject(err);
+          return reject(err);
         });
     });
   }
