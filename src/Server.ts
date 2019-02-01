@@ -1,8 +1,8 @@
-import { IConfig } from "./config";
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import { notFoundRoute, errorHandler, Database } from "./libs";
-import router from "./Router";
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import { IConfig } from './config';
+import { Database, errorHandler, notFoundRoute } from './libs';
+import router from './Router';
 
 class Server {
   public app: express.Express;
@@ -16,22 +16,16 @@ class Server {
     return this;
   }
 
-  private initBodyParser() {
-    const { app } = this;
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
-  }
-
   public setupRoutes() {
     const {
       app,
-      config: { port }
+      config: { port },
     } = this;
 
-    app.use("/health-check", (req, res) => {
+    app.use('/health-check', (req, res) => {
       res.send(`I am OK.<br>App running on ${port}`);
     });
-    app.use("/api", router);
+    app.use('/api', router);
     app.use(notFoundRoute);
     app.use(errorHandler);
   }
@@ -39,20 +33,27 @@ class Server {
   public run() {
     const {
       app,
-      config: { port, mongo_url }
+      config: { port, mongo_url },
     } = this;
-    Database.open(mongo_url).then((resolve)=>{
-      app.listen(port, (err: Error) => {
-        if (err) {
-          throw err;
-        }
-        console.log(`App is running at port: ${port}`);
-        console.log(resolve)
+    Database.open(mongo_url)
+      .then((resolve) => {
+        console.log('Connected successfully to mongo');
+        app.listen(port, (err: Error) => {
+          if (err) {
+            throw err;
+          }
+          console.log(`App is running at port: ${port}`);
+        });
+      })
+      .catch((err) => {
+        console.log('error', err);
       });
-    }).catch((err)=>{
-      console.log("error", err)
-    })
+  }
 
+  private initBodyParser() {
+    const { app } = this;
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
   }
 }
 

@@ -1,24 +1,23 @@
-import * as mongoose from "mongoose";
-import seedDate from "./seedData";
+import * as mongoose from 'mongoose';
+import seedDate from './seedData';
 export default class Database {
-  static open(mongo_uri: string) {
+  public static open(mongoUri: string) {
     return new Promise((resolve, reject) => {
       mongoose
         .connect(
-          mongo_uri,
-          { useNewUrlParser: true }
+          mongoUri,
+          { useNewUrlParser: true },
         )
-        .then(result => {
-          console.log("Connected successfully to mongo");
+        .then((result) => {
           seedDate();
-          return resolve("hello");
+          return resolve('Connected successfully to mongo');
         })
-        .catch(err => {
+        .catch((err) => {
           return reject(err);
         });
     });
   }
-  static disconnect() {
+  public static disconnect() {
     mongoose.disconnect();
   }
 }

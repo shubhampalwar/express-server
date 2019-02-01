@@ -1,20 +1,18 @@
-import * as mongoose from "mongoose";
-import IUser from "./IUserModel";
-import { userModel } from "./UserModel";
+import * as mongoose from 'mongoose';
+import IUser from './IUserModel';
+import { userModel } from './UserModel';
 export default class UserRepository {
+  public static generateObjectID() {
+    return String(mongoose.Types.ObjectId());
+  }
   private model: mongoose.Model<IUser>;
   constructor() {
     this.model = userModel;
   }
-  static generateObjectID() {
-    console.log("inside generate obj id");
-    return String(mongoose.Types.ObjectId());
-  }
   public create(data): Promise<IUser> {
-    console.log("inside create");
     return this.model.create({
       ...data,
-      _id: UserRepository.generateObjectID()
+      _id: UserRepository.generateObjectID(),
     });
   }
   public updateOne(data, change): mongoose.Query<IUser> {
