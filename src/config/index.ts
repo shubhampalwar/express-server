@@ -1,3 +1,3 @@
-import { IConfig } from "./IConfig";
-export { default as config } from "./Configuration";
+import { IConfig } from './IConfig';
+export { default as config } from './Configuration';
 export { IConfig };

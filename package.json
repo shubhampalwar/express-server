@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "husky": {
+    "hooks": {
+    "pre-commit": "npm run lint"
+    }
+  },
   "scripts": {
     "nodemon": "nodemon ./dist/index.js",
     "extra:js": "babel-node Extra --presets env",

@@ -1,8 +1,8 @@
-export interface iPermission {
+export interface IPermission {
   [moduleName: string]: {
-    all: Array<string>;
-    read: Array<string>;
-    write: Array<string>;
-    delete: Array<string>;
+    all: string[],
+    read: string[],
+    write: string[],
+    delete: string[],
   };
 }

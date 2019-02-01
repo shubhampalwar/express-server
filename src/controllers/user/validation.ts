@@ -1,60 +1,58 @@
 const validation = {
   create: {
     id: {
-      required: true,
+      errorMessage: 'ID is required',
+      in: ['body'],
       number: true,
-      in: ["body"],
-      errorMessage: "ID is required",
-      custom: function(value) {
-        console.log("Value", value);
-       // throw { error: "Error Occurred", message: "Message" };
-      }
+      required: true,
     },
     name: {
-      string: true,
-      required: true,
+      errorMessage: 'Name is required',
+      in: ['body'],
       regex: "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$",
-      in: ["body"],
-      errorMessage: "Name is required"
-    }
+      required: true,
+      string: true,
+    },
   },
   delete: {
     id: {
-      required: true,
+      errorMessage: 'Id is required',
+      in: ['params'],
       number: true,
-      errorMessage: "Id is required",
-      in: ["params"]
-    }
+      required: true,
+    },
   },
   get: {
-    skip: {
-      required: false,
-      default: 20,
-      number: true,
-      in: ["query"],
-      errorMessage: "Skip is invalid"
-    },
     limit: {
-      required: false,
       default: 10,
+      errorMessage: 'Limit is invalid',
+      in: ['query'],
       number: true,
-      in: ["query"],
-      errorMessage: "Limit is invalid"
-    }
+      required: false,
+    },
+    skip: {
+      default: 20,
+      errorMessage: 'Skip is invalid',
+      in: ['query'],
+      number: true,
+      required: false,
+    },
   },
   update: {
+    dataToUpdate: {
+      errorMessage: 'Error in data to updates',
+      in: ['body'],
+      isObject: true,
+      required: true,
+      custom(dataToUpdate) {
+        //
+      },
+    },
     id: {
+      in: ['body'],
       required: true,
       string: true,
-      in: ["body"]
     },
-    dataToUpdate: {
-      in: ["body"],
-      required: true,
-      isObject: true,
-      errorMessage: "Error in data to updates",
-      custom: function(dataToUpdate) {}
-    }
-  }
+  },
 };
 export default validation;
