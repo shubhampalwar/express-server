@@ -1,2 +1,3 @@
-import traineeRouter from "./trainee";
-export default traineeRouter;
+import traineeRouter from './trainee';
+import userRouter from './user';
+export { traineeRouter, userRouter};

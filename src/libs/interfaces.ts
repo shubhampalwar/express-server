@@ -6,8 +6,3 @@ export interface iPermission {
     delete: Array<string>;
   };
 }
-
-export interface iValidation {
-  traineeEmail: string;
-  reviewerEmail: string;
-}

@@ -1,35 +1,23 @@
-import * as mongoose from "mongoose";
-import { getMaxListeners } from "cluster";
+import * as mongoose from 'mongoose';
+import seedDate from './seedData';
 export default class Database {
-  static open(mongo_uri) {
+  public static open(mongoUri: string) {
     return new Promise((resolve, reject) => {
       mongoose
         .connect(
-          mongo_uri,
-          { useNewUrlParser: true }
+          mongoUri,
+          { useNewUrlParser: true },
         )
-        .then(result => {
-          console.log("Connected successfully to mongo");
-          const Employee = mongoose.model("Employee", {
-            name: String,
-            emp_id: String,
-            ph_no: String,
-            email_id: String,
-            add: String
-          });
-
-          const Employee1 = new Employee({ name: "Shubham Palwar", emp_id: "SD0010", ph_no: "9876543210", email_id:"xyz@gmail.com", add: "South Delhi"});
-          Employee1.save().then(() => console.log("details saved"));
-          return resolve("Hello");
+        .then((result) => {
+          seedDate();
+          return resolve('Connected successfully to mongo');
         })
-        .catch(err => {
-          if (err) {
-            return reject(err);
-          }
+        .catch((err) => {
+          return reject(err);
         });
     });
   }
-  static disconnect() {
+  public static disconnect() {
     mongoose.disconnect();
   }
 }
