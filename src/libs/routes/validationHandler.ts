@@ -1,28 +1,28 @@
-export default config => (req, res, next) => {
+export default (config) => (req, res, next) => {
   const Keys = Object.keys(config);
 
-  Keys.forEach(key => {
+  Keys.forEach((key) => {
     const items = config[key];
-    const value = items.in.map(item => {
+    const value = items.in.map((item) => {
       return req[item][key];
     });
-    const validatedValue = value.filter(item => item);
+    const validatedValue = value.filter((item) => item);
     if (items && items.required) {
       if (validatedValue.length !== value.length) {
         return next({
-          error: "BAD_REQUEST",
+          error: 'BAD_REQUEST',
+          message: items.errorMessage,
           status: 400,
-          message: items.errorMessage
         });
       }
     }
     if (items && items.string) {
       if (validatedValue[0]) {
-        if (typeof validatedValue[0] != "string") {
+        if (typeof validatedValue[0] !== 'string') {
           return next({
-            error: "BAD_REQUEST",
-            status: 400,
-            message: `${key} must be a string`
+          error: 'BAD_REQUEST',
+          message: `${key} must be a string`,
+          status: 400,
           });
         }
       }
@@ -31,9 +31,9 @@ export default config => (req, res, next) => {
       if (validatedValue[0]) {
         if (isNaN(validatedValue[0])) {
           return next({
-            error: "BAD_REQUEST",
+            error: 'BAD_REQUEST',
+            message: `${key} must be a number`,
             status: 400,
-            message: `${key} must be a number`
           });
         }
       }
@@ -43,26 +43,26 @@ export default config => (req, res, next) => {
         const rgex = RegExp(items.regex);
         if (!rgex.test(validatedValue[0])) {
           return next({
-            error: "BAD_REQUEST",
+            error: 'BAD_REQUEST',
+            message: `${key} is invalid`,
             status: 400,
-            message: `${key} is invalid`
           });
         }
       }
     }
     if (items && items.isObject) {
       if (validatedValue[0]) {
-        if (typeof validatedValue[0] != "object") {
+        if (typeof validatedValue[0] !== 'object') {
           return next({
-            error: "BAD_REQUEST",
+            error: 'BAD_REQUEST',
+            message: `invalid object`,
             status: 400,
-            message: `invalid object`
           });
         }
       }
     }
     if (items && items.default) {
-      if (validatedValue[0] == null) {
+      if (validatedValue[0] === undefined) {
         validatedValue[0] = items.default;
       }
     }
