@@ -9,13 +9,16 @@ export default (moduleName: string, permissionType: string) => (
 ) => {
   const userRepository: UserRepository = new UserRepository();
   const token: string = req.headers.authorization;
-  const userDecode = jwt.verify(token, process.env.KEY);
-  if (!userDecode) {
+  let userDecode;
+  try {
+    userDecode = jwt.verify(token, process.env.KEY);
+  }
+  catch {
     return next({
-      error: 'FORBIDDEN',
-      message: 'Authentication failed',
-      status: 403,
-    });
+          error: 'FORBIDDEN',
+          message: 'Authentication failed',
+          status: 403,
+        });
   }
   userRepository
     .findOne({ _id: userDecode.id })
