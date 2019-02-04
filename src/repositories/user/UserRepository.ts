@@ -1,19 +1,17 @@
 import * as mongoose from 'mongoose';
+import VersionableRepository from '../versionable/VersionableRepository';
 import IUser from './IUserModel';
-import { userModel } from './UserModel';
-export default class UserRepository {
-  public static generateObjectID() {
-    return String(mongoose.Types.ObjectId());
-  }
-  private model: mongoose.Model<IUser>;
+import { userModel } from './userModel';
+export default class UserRepository extends VersionableRepository< IUser, mongoose.Model<IUser> > {
+  //  public static generateObjectID() {
+  //    return String(mongoose.Types.ObjectId());
+  //  }
   constructor() {
-    this.model = userModel;
+    super(userModel);
   }
   public create(data): Promise<IUser> {
-    return this.model.create({
-      ...data,
-      _id: UserRepository.generateObjectID(),
-    });
+    this.genericCreate();
+    return this.model.create(...data);
   }
   public countDocuments(): mongoose.Query<number> {
     return this.model.countDocuments();
@@ -22,21 +20,13 @@ export default class UserRepository {
     return this.model.findOne(query);
   }
   public updateOne(query, change): mongoose.Query<IUser> {
+    this.genericUpdate();
     return this.model.updateOne(query, change);
-  }
-  public updateMany(query, change): mongoose.Query<IUser> {
-    return this.model.updateMany(query, change);
   }
   public deleteOne(query): mongoose.Query<{
     ok?: number;
     n?: number;
   }> {
     return this.model.deleteOne(query);
-  }
-  public deleteMany(query): mongoose.Query<{
-    ok?: number;
-    n?: number;
-  }> {
-    return this.model.deleteMany(query);
   }
 }
