@@ -9,16 +9,7 @@ class UserController {
   }
   private static user: UserController;
   public get(req: Request, res: Response) {
-    const data = [
-      {
-        Id: 1,
-        Name: 'user1',
-      },
-      {
-        Id: 2,
-        Name: 'user2',
-      },
-    ];
+    const { data } = req.body;
     res
       .status(200)
       .send(successHandler('user fetched successfully', 200, data));

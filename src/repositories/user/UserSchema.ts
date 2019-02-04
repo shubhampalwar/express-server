@@ -3,8 +3,9 @@ export default class UserSchema extends mongoose.Schema {
   constructor(options: any) {
     const baseSchema = {
       _id: String,
+      email: String,
       name: String,
-      name2: String,
+      role: String,
     };
 
     super(baseSchema, options);

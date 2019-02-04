@@ -15,22 +15,28 @@ export default class UserRepository {
       _id: UserRepository.generateObjectID(),
     });
   }
-  public updateOne(data, change): mongoose.Query<IUser> {
-    return this.model.updateOne(data, change);
+  public countDocuments(): mongoose.Query<number> {
+    return this.model.countDocuments();
   }
-  public updateMany(data, change): mongoose.Query<IUser> {
-    return this.model.updateMany(data, change);
+  public findOne(query): mongoose.DocumentQuery<IUser, IUser, {}> {
+    return this.model.findOne(query);
   }
-  public deleteOne(data): mongoose.Query<{
+  public updateOne(query, change): mongoose.Query<IUser> {
+    return this.model.updateOne(query, change);
+  }
+  public updateMany(query, change): mongoose.Query<IUser> {
+    return this.model.updateMany(query, change);
+  }
+  public deleteOne(query): mongoose.Query<{
     ok?: number;
     n?: number;
-}> {
-    return this.model.deleteOne(data);
+  }> {
+    return this.model.deleteOne(query);
   }
-  public deleteMany(data): mongoose.Query<{
+  public deleteMany(query): mongoose.Query<{
     ok?: number;
     n?: number;
-}> {
-    return this.model.deleteMany(data);
+  }> {
+    return this.model.deleteMany(query);
   }
 }
