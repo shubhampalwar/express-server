@@ -5,8 +5,8 @@ export default () => {
     if (res === 0) {
       userRepository
         .create({
-          name: 'trainee',
           email: 'trainee@successive.tech',
+          name: 'trainee',
           role: 'trainee',
         })
         .then((result) => {
@@ -17,8 +17,8 @@ export default () => {
         });
       userRepository
         .create({
-          name: 'head trainer',
           email: 'head_trainer@successive.tech',
+          name: 'head trainer',
           role: 'head-trainer',
         })
         .then((result) => {
