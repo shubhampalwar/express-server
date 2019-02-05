@@ -1,6 +1,8 @@
 import * as mongoose from 'mongoose';
-
-export default class VersionableRepository <D extends mongoose.Document, M extends mongoose.Model<D>> {
+export default class VersionableRepository<
+  D extends mongoose.Document,
+  M extends mongoose.Model<D>
+> {
   public static generateObjectID() {
     return String(mongoose.Types.ObjectId());
   }
@@ -8,12 +10,21 @@ export default class VersionableRepository <D extends mongoose.Document, M exten
   constructor(Model) {
     this.model = Model;
   }
-  public genericCreate(): Promise<D> {
+  public genericCreate(data): Promise<D> {
     const id = VersionableRepository.generateObjectID();
-    return this.model.create({_id: id, originalId: id});
+    return this.model.create({ ...data, _id: id, originalId: id });
   }
-  public genericUpdate() {
+  public countDocuments(): mongoose.Query<number> {
+    return this.model.countDocuments();
+  }
+  public genericUpdate(data): Promise<D> {
     const id = VersionableRepository.generateObjectID();
-
+    return this.model.create({ ...data, _id: id });
+  }
+  public genericDelete(query) {
+    console.log(query);
+    return this.model.updateOne(query, { deletedAt: Date.now() }).then((res) => {
+      console.log('res', res);
+    });
   }
 }

@@ -20,9 +20,9 @@ export default (config) => (req, res, next) => {
       if (validatedValue[0]) {
         if (typeof validatedValue[0] !== 'string') {
           return next({
-          error: 'BAD_REQUEST',
-          message: `${key} must be a string`,
-          status: 400,
+            error: 'BAD_REQUEST',
+            message: `${key} must be a string`,
+            status: 400,
           });
         }
       }
@@ -71,7 +71,7 @@ export default (config) => (req, res, next) => {
         items.custom(validatedValue[0]);
       }
     }
-    console.log(`${key}: ${validatedValue[0]}`);
+    // console.log(`${key}: ${validatedValue[0]}`);
   });
   next();
 };

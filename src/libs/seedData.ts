@@ -3,6 +3,7 @@ export default () => {
   const userRepository = new UserRepository();
   userRepository.countDocuments().then((res) => {
     if (res === 0) {
+      console.log(res);
       userRepository
         .create({
           email: 'trainee@successive.tech',
@@ -29,20 +30,4 @@ export default () => {
         });
     }
   });
-  // userRepository
-  //   .deleteOne({})
-  //   .then((result) => {
-  //     console.log('Delete', result);
-  //   })
-  //   .catch((err) => {
-  //     console.log('Error', err);
-  //   });
-  // userRepository
-  //   .updateOne({ name: 'Super Admin' }, { name: 'Admin' })
-  //   .then((result) => {
-  //     console.log('Updates are', result);
-  //   })
-  //   .catch((err) => {
-  //     console.log('Error', err);
-  //   });
 };

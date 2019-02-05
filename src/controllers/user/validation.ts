@@ -18,8 +18,8 @@ const validation = {
     id: {
       errorMessage: 'Id is required',
       in: ['params'],
-      number: true,
       required: true,
+      string: true,
     },
   },
   get: {
