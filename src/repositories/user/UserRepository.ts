@@ -9,15 +9,13 @@ export default class UserRepository extends VersionableRepository<
   constructor() {
     super(userModel);
   }
-  public create(data): Promise<IUser> {
-    return this.genericCreate(data);
+  public async create(data): Promise<IUser> {
+    return await this.genericCreate(data);
   }
-  public updateOne(query, change): Promise<IUser> {
-    return this.genericUpdate(query, change);
+  public async updateOne(query, change): Promise<IUser> {
+    return await this.genericUpdate(query, change);
   }
-  public deleteOne(query) {
-    console.log('inside deleteOne');
-    console.log(query);
-    return this.genericDelete(query);
+  public async deleteOne(query) {
+    return await this.genericDelete(query);
   }
 }

@@ -11,9 +11,6 @@ export default class Database {
         .then((result) => {
           seedDate();
           return resolve('Connected successfully to mongo');
-        })
-        .catch((err) => {
-          return reject(err);
         });
     });
   }

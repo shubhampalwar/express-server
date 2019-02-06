@@ -6,6 +6,7 @@ import user from './Controller';
 import validation from './validation';
 const userRouter = Router();
 userRouter
+  .post('/login', validationHandler(validation.login), user.login)
   .get(
     '/',
     validationHandler(validation.get),
