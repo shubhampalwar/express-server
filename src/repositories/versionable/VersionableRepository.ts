@@ -25,7 +25,7 @@ export default class VersionableRepository<
     return this.findOne({...query, deletedAt: {$exists: false}})
       .then((result) => {
         const updateData = Object.assign(result, change);
-        return this.model.create({ ...updateData, _id: id })
+        return this.model.create({ ...updateData, _id: id });
       }) .then((res) => {
         return this.model.updateOne({...query, deletedAt: {$exists: false}}, { deletedAt: Date.now() });
       }).catch((err) => {
