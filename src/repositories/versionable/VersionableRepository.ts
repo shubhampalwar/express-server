@@ -23,7 +23,7 @@ export default class VersionableRepository<
   }
   public genericDelete(query) {
     console.log(query);
-    return this.model.updateOne(query, { deletedAt: Date.now() }).then((res) => {
+    return this.model.updateOne({...query, deletedAt: {$exists: false}}, { deletedAt: Date.now() }).then((res) => {
       console.log('res', res);
     });
   }

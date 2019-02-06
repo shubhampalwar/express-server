@@ -16,7 +16,7 @@ export default class UserRepository extends VersionableRepository<
     return this.model.findOne(query).lean();
   }
   public updateOne(query, change): Promise<IUser> {
-    return this.findOne(query)
+    return this.findOne({...query, deletedAt: {$exists: false}})
       .then((result) => {
         return this.genericUpdate(Object.assign(result, change));
       })
