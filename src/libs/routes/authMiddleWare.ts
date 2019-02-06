@@ -23,8 +23,7 @@ export default (moduleName: string, permissionType: string) => (
   userRepository
     .findOne({ _id: userDecode.id })
     .then((result) => {
-      req.body.data = Object.assign(result);
-      const { data: {role } } = req.body;
+      const { role } = result;
       if (!hasPermission(moduleName, role, permissionType)) {
         return next({
           error: 'Access Denied',
@@ -32,6 +31,7 @@ export default (moduleName: string, permissionType: string) => (
           status: 403,
         });
       }
+      req.body.data = Object.assign(result);
       next();
     })
     .catch((err) => {

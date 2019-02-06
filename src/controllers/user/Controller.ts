@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { successHandler } from '../../libs';
+import UserRepository from '../../repositories/user/UserRepository';
 class UserController {
   public static getInstance() {
     if (!UserController.user) {
@@ -16,23 +17,28 @@ class UserController {
   }
 
   public create(req: Request, res: Response, next: NextFunction) {
-    const { name, id } = req.body;
+    const { name: bodyName, email: bodyEmail, role: bodyRole } = req.body;
+    const userRepository = new UserRepository();
     const data = {
-      ID: id,
-      Name: name,
+      email: bodyEmail,
+      name: bodyName,
+      role: bodyRole,
     };
+    userRepository.create(data);
     res
       .status(202)
       .send(successHandler('user created successfully', 202, data));
   }
 
   public update(req: Request, res: Response, next) {
-    const { dataToUpdate, id } = req.body;
+    const { dataToUpdate: bodyDate, id: bodyId } = req.body;
 
     const data = {
-      Id: id,
-      dTU: dataToUpdate,
+      dTU: bodyDate,
+      id: bodyId,
     };
+    const userRepository = new UserRepository();
+    userRepository.updateOne({ _id: bodyId }, bodyDate);
     res
       .status(200)
       .send(successHandler('user Modified successfully', 202, data));
@@ -40,6 +46,8 @@ class UserController {
 
   public delete(req: Request, res: Response, next) {
     const { id } = req.params;
+    const userRepository = new UserRepository();
+    userRepository.deleteOne({ _id: id });
     const data = {
       Id: id,
     };
