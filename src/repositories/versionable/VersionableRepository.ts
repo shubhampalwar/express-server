@@ -10,6 +10,9 @@ export default class VersionableRepository<
   constructor(Model) {
     this.model = Model;
   }
+  public findOne(query): mongoose.DocumentQuery<D, D, {}> {
+    return this.model.findOne(query).lean();
+  }
   public genericCreate(data): Promise<D> {
     const id = VersionableRepository.generateObjectID();
     return this.model.create({ ...data, _id: id, originalId: id });
@@ -17,9 +20,18 @@ export default class VersionableRepository<
   public countDocuments(): mongoose.Query<number> {
     return this.model.countDocuments();
   }
-  public genericUpdate(data): Promise<D> {
+  public genericUpdate(query, change): Promise<D> {
     const id = VersionableRepository.generateObjectID();
-    return this.model.create({ ...data, _id: id });
+    return this.findOne({...query, deletedAt: {$exists: false}})
+      .then((result) => {
+        const updateData = Object.assign(result, change);
+        return this.model.create({ ...updateData, _id: id })
+      }) .then((res) => {
+        return this.model.updateOne({...query, deletedAt: {$exists: false}}, { deletedAt: Date.now() });
+      }).catch((err) => {
+        console.log('not found', err);
+        return err;
+      });
   }
   public genericDelete(query) {
     console.log(query);
