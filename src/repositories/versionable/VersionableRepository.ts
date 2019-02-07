@@ -13,30 +13,26 @@ export default class VersionableRepository<
   public findOne(query): mongoose.DocumentQuery<D, D, {}> {
     return this.model.findOne(query).lean();
   }
-  public genericCreate(data): Promise<D> {
+  public async genericCreate(data): Promise<D> {
     const id = VersionableRepository.generateObjectID();
-    return this.model.create({ ...data, _id: id, originalId: id });
+    return await this.model.create({ ...data, _id: id, originalId: id });
   }
   public countDocuments(): mongoose.Query<number> {
     return this.model.countDocuments();
   }
-  public genericUpdate(query, change): Promise<D> {
+  public async genericUpdate(query, change): Promise<D> {
     const id = VersionableRepository.generateObjectID();
-    return this.findOne({...query, deletedAt: {$exists: false}})
-      .then((result) => {
-        const updateData = Object.assign(result, change);
-        return this.model.create({ ...updateData, _id: id });
-      }) .then((res) => {
-        return this.model.updateOne({...query, deletedAt: {$exists: false}}, { deletedAt: Date.now() });
-      }).catch((err) => {
-        console.log('not found', err);
-        return err;
-      });
+    let result: any = await this.findOne({...query, deletedAt: {$exists: false}});
+    if (result) {
+      const updateData = await Object.assign(result, change);
+      result = await this.model.create({ ...updateData, _id: id });
+      if (result) {
+        return await this.model.updateOne({...query, deletedAt: {$exists: false}}, { deletedAt: Date.now() });
+      }
+    }
   }
-  public genericDelete(query) {
-    console.log(query);
-    return this.model.updateOne({...query, deletedAt: {$exists: false}}, { deletedAt: Date.now() }).then((res) => {
-      console.log('res', res);
-    });
+  public async genericDelete(query) {
+    return await this.model.updateOne({...query, deletedAt: {$exists: false}}, { deletedAt: Date.now() });
+
   }
 }

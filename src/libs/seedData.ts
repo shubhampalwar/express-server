@@ -1,33 +1,32 @@
+import hashPassword from '../libs/hashPassword';
 import UserRepository from '../repositories/user/UserRepository';
-export default () => {
+export default async () => {
   const userRepository = new UserRepository();
-  userRepository.countDocuments().then((res) => {
-    if (res === 0) {
-      console.log(res);
-      userRepository
-        .create({
-          email: 'trainee@successive.tech',
-          name: 'trainee',
-          role: 'trainee',
-        })
-        .then((result) => {
-          console.log('User Created', result);
-        })
-        .catch((err) => {
-          console.log('Error', err);
-        });
-      userRepository
-        .create({
-          email: 'head_trainer@successive.tech',
-          name: 'head trainer',
-          role: 'head-trainer',
-        })
-        .then((result) => {
-          console.log('User Created', result);
-        })
-        .catch((err) => {
-          console.log('Error', err);
-        });
-    }
-  });
+  const res = await userRepository.countDocuments();
+  if (res === 0) {
+    try {
+      let result = await userRepository
+      .create({
+        email: 'trainee@successive.tech',
+        name: 'trainee',
+        password: await hashPassword(),
+        role: 'trainee',
+      });
+      if (result) {
+        console.log('User Created', result);
+      }
+      result = await userRepository
+      .create({
+        email: 'head_trainer@successive.tech',
+        name: 'head trainer',
+        password: await hashPassword(),
+        role: 'head-trainer',
+      });
+      if (result) {
+        console.log('User Created', result);
+      }
+   } catch (err) {
+     console.log('error', err);
+   }
+  }
 };

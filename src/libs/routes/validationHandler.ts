@@ -71,7 +71,6 @@ export default (config) => (req, res, next) => {
         items.custom(validatedValue[0]);
       }
     }
-    // console.log(`${key}: ${validatedValue[0]}`);
   });
   next();
 };

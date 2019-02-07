@@ -38,6 +38,20 @@ const validation = {
       required: false,
     },
   },
+  login: {
+    email: {
+      errorMessage: 'Email ID invalid',
+      in: ['body'],
+      required: true,
+      string: true,
+    },
+    password: {
+      errorMessage: 'Password is invalid',
+      in: ['body'],
+      required: true,
+      string: true,
+    },
+  },
   update: {
     dataToUpdate: {
       errorMessage: 'Error in data to updates',
