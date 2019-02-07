@@ -1,6 +1,5 @@
 export default (config) => (req, res, next) => {
   const Keys = Object.keys(config);
-
   Keys.forEach((key) => {
     const items = config[key];
     const value = items.in.map((item) => {

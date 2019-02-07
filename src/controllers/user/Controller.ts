@@ -1,9 +1,8 @@
 import * as bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { successHandler } from '../../libs';
-import hashPassword from '../../libs/hashPassword';
-import UserRepository from '../../repositories/user/UserRepository';
+import { hashPassword, successHandler } from '../../libs';
+import { UserRepository } from '../../repositories';
 class UserController {
   public static getInstance() {
     if (!UserController.user) {
@@ -14,6 +13,8 @@ class UserController {
   private static user: UserController;
   public get(req: Request, res: Response) {
     try {
+      // const { skip, limit } = req.param;
+      // console.log(`skip: ${skip} limit: ${limit}`);
       const { data } = req.body;
       res.status(200).send(successHandler('user fetched successfully', 200, data));
     }
@@ -53,7 +54,7 @@ class UserController {
         id: bodyId,
       };
       const userRepository = new UserRepository();
-      const result = await userRepository.updateOne({ _id: bodyId }, bodyDate);
+      const result = await userRepository.updateOne({ originalId: bodyId }, bodyDate);
       if (!result) {
         return next({
           error: 'Error Occurred',
@@ -72,7 +73,7 @@ class UserController {
     try {
       const { id } = req.params;
       const userRepository = new UserRepository();
-      const result = await userRepository.deleteOne({ _id: id });
+      const result = await userRepository.deleteOne({ originalId: id });
       if (result.n === 0) {
         return next({
           error: 'Error Occurred',

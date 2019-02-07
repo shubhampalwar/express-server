@@ -1,11 +1,14 @@
 import { Router } from 'express';
-import { traineeModule } from '../../libs/constants';
-import authMiddleWare from '../../libs/routes/authMiddleWare';
-import validationHandler from '../../libs/routes/validationHandler';
+import { authMiddleWare, traineeModule, validationHandler } from '../../libs';
 import trainee from './Controller';
 import validation from './validation';
 const traineeRouter = Router();
 traineeRouter
+  .post('/login', validationHandler(validation.login), trainee.login)
+  .get('/getlist',
+  validationHandler(validation.get),
+  authMiddleWare(traineeModule, 'read'),
+  trainee.getList)
   .get(
     '/',
     validationHandler(validation.get),

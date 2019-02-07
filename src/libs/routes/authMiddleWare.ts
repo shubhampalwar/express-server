@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import UserRepository from '../../repositories/user/UserRepository';
+import { UserRepository } from '../../repositories';
 import hasPermission from './permissions';
 export default (moduleName: string, permissionType: string) => async (
   req: Request,
@@ -19,7 +19,7 @@ export default (moduleName: string, permissionType: string) => async (
       status: 403,
     });
   }
-  const result = await userRepository.findOne({ _id: userDecode.id, role: { $exists: true } });
+  const result = await userRepository.findOne({ _id: userDecode.id, role: { $exists: true } }, '-_id name email role');
   if (!result) {
     return next({
             error: 'Access Denied',

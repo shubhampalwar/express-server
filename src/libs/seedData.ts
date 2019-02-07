@@ -1,5 +1,5 @@
-import hashPassword from '../libs/hashPassword';
-import UserRepository from '../repositories/user/UserRepository';
+import { hashPassword } from '../libs';
+import { UserRepository } from '../repositories';
 export default async () => {
   const userRepository = new UserRepository();
   const res = await userRepository.countDocuments();
