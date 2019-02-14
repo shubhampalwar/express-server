@@ -16,9 +16,10 @@ class UserController {
       // const { skip, limit } = req.param;
       // console.log(`skip: ${skip} limit: ${limit}`);
       const { data } = req.body;
-      res.status(200).send(successHandler('user fetched successfully', 200, data));
-    }
-    catch (err) {
+      res
+        .status(200)
+        .send(successHandler('user fetched successfully', 200, data));
+    } catch (err) {
       console.log('Error', err);
     }
   }
@@ -27,20 +28,22 @@ class UserController {
       const { name: bodyName, email: bodyEmail, role: bodyRole } = req.body;
       const userRepository = new UserRepository();
       const data = {
-      email: bodyEmail,
-      name: bodyName,
-      password: await hashPassword(),
-      role: bodyRole,
-    };
+        email: bodyEmail,
+        name: bodyName,
+        password: await hashPassword(),
+        role: bodyRole,
+      };
       const result = await userRepository.create(data);
-      if (! result) {
+      if (!result) {
         return next({
           error: 'Error Occurred',
           message: 'Creation Failed',
           status: 400,
         });
       }
-      res.status(202).send(successHandler('user created successfully', 202, result));
+      res
+        .status(202)
+        .send(successHandler('user created successfully', 202, result));
     } catch (err) {
       console.log('Error', err);
     }
@@ -54,7 +57,10 @@ class UserController {
         id: bodyId,
       };
       const userRepository = new UserRepository();
-      const result = await userRepository.updateOne({ originalId: bodyId }, bodyDate);
+      const result = await userRepository.updateOne(
+        { originalId: bodyId },
+        bodyDate,
+      );
       if (!result) {
         return next({
           error: 'Error Occurred',
@@ -62,9 +68,10 @@ class UserController {
           status: 400,
         });
       }
-      res.status(200).send(successHandler('user Modified successfully', 202, data));
-    }
-    catch (err) {
+      res
+        .status(200)
+        .send(successHandler('user Modified successfully', 202, data));
+    } catch (err) {
       console.log('Error', err);
     }
   }
@@ -84,46 +91,78 @@ class UserController {
       const data = {
         Id: id,
       };
-      res.status(200).send(successHandler('user Deleted successfully', 202, data));
-    }
-    catch (err) {
+      res
+        .status(200)
+        .send(successHandler('user Deleted successfully', 202, data));
+    } catch (err) {
       console.log('Error', err);
     }
   }
   public async login(req: Request, res: Response, next: NextFunction) {
     try {
-    const { email: bodyEmail, password: bodyPassword} = req.body;
-    console.log(`email ${bodyEmail} \npassword ${bodyPassword}`);
-    const userRepository = new UserRepository();
-    let result = await userRepository.findOne({email: bodyEmail});
-    if (!result) {
-      return next({
-        error: 'login failed',
-        message: 'invalid email',
-        status: 404,
+      const { email: bodyEmail, password: bodyPassword } = req.body;
+      console.log(`email ${bodyEmail} \npassword ${bodyPassword}`);
+      const userRepository = new UserRepository();
+      let result = await userRepository.findOne({ email: bodyEmail });
+      if (!result) {
+        return next({
+          error: 'login failed',
+          message: 'invalid email',
+          status: 404,
+        });
+      }
+      const { email: dbEmail, _id: dbId, password: dbPassword } = result;
+      result = await bcrypt.compare(bodyPassword, dbPassword);
+      if (!result) {
+        return next({
+          error: 'login failed',
+          message: 'invalid password',
+          status: 404,
+        });
+      }
+      const token = jwt.sign(
+        {
+          aud: 'www.successive.in',
+          email: dbEmail,
+          exp: Math.floor(Date.now() / 1000) + 15 * 60,
+          iat: Date.now(),
+          id: dbId,
+          iss: 'Successive tech',
+          sub: 'Learn and Implement',
+        },
+        process.env.KEY,
+      );
+      res
+        .status(200)
+        .send(
+          successHandler('Successfully logged in', 202, `your token : ${token}`),
+        );
+    } catch (err) {
+      console.log('Error', err);
+    }
+  }
+  public async getList(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { skip: querySkip, limit: queryLimit, ...query } = req.query;
+      const userRepository = new UserRepository();
+      const result = await userRepository.find(query, '-_id name email role', {
+        limit: parseInt(queryLimit, 10),
+        skip: parseInt(querySkip, 10),
       });
-    }
-    const {email: dbEmail, _id: dbId , password: dbPassword} = result;
-    result = await bcrypt.compare(bodyPassword, dbPassword);
-    if (!result) {
-      return next({
-        error: 'login failed',
-        message: 'invalid password',
-        status: 404,
-      });
-    }
-    const token = jwt.sign({
-      aud: 'www.successive.in',
-      email: dbEmail,
-      exp: Math.floor(Date.now() / 1000) + (15 * 60),
-      iat: Date.now(),
-      id: dbId,
-      iss: 'Successive tech',
-      sub: 'Learn and Implement',
-    }, process.env.KEY);
-    res.status(200).send(successHandler('Successfully logged in', 202, `your token : ${token}`));
-    }
-    catch (err) {
+      const count = await userRepository.count(query);
+      if (count === 0) {
+        return next({
+          error: 'not found',
+          message: 'user does not exists',
+          status: 404,
+        });
+      }
+      const data = {
+        Count: count,
+        Result: result,
+      };
+      res.status(200).send(successHandler('data fetched', 202, data));
+    } catch (err) {
       console.log('Error', err);
     }
   }

@@ -1,11 +1,5 @@
 const validation = {
   create: {
-    id: {
-      errorMessage: 'ID is required',
-      in: ['body'],
-      number: true,
-      required: true,
-    },
     name: {
       errorMessage: 'Name is required',
       in: ['body'],

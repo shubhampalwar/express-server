@@ -5,10 +5,10 @@ import validation from './validation';
 const userRouter = Router();
 userRouter
   .post('/login', validationHandler(validation.login), user.login)
-  // .get('/getlist/?skip=&limit=',
-  // validationHandler(validation.get),
-  // authMiddleWare(userModule, 'read'),
-  // user.getList)
+  .get('/getlist',
+  validationHandler(validation.get),
+  authMiddleWare(userModule, 'read'),
+  user.getList)
   .get(
     '/',
     validationHandler(validation.get),

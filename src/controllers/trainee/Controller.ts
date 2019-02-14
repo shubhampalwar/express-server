@@ -136,7 +136,7 @@ class TraineeController {
       if (!result) {
         return next({
           error: 'not found',
-          message: 'user does,t exists',
+          message: 'user does not exists',
           status: 404,
         });
        }
@@ -145,7 +145,7 @@ class TraineeController {
         Count: count,
         Result: result,
       };
-      res.status(200).send(successHandler('Successfully logged in', 202, data));
+      res.status(200).send(successHandler('data fetched', 202, data));
     }
     catch (err) {
       console.log('Error', err);
