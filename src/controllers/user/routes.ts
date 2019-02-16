@@ -1,12 +1,14 @@
 import { Router } from 'express';
-import { userModule } from '../../libs/constants';
-import authMiddleWare from '../../libs/routes/authMiddleWare';
-import validationHandler from '../../libs/routes/validationHandler';
+import { authMiddleWare, userModule, validationHandler } from '../../libs';
 import user from './Controller';
 import validation from './validation';
 const userRouter = Router();
 userRouter
   .post('/login', validationHandler(validation.login), user.login)
+  .get('/getlist',
+  validationHandler(validation.get),
+  authMiddleWare(userModule, 'read'),
+  user.getList)
   .get(
     '/',
     validationHandler(validation.get),

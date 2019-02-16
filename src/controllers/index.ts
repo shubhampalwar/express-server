@@ -1,3 +1,3 @@
-import traineeRouter from './trainee';
-import userRouter from './user';
+import { traineeRouter } from './trainee';
+import { userRouter } from './user';
 export { traineeRouter, userRouter};

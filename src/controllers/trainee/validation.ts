@@ -1,11 +1,5 @@
 const validation = {
   create: {
-    id: {
-      errorMessage: 'ID is required',
-      in: ['body'],
-      number: true,
-      required: true,
-    },
     name: {
       errorMessage: 'Name is required',
       in: ['body'],
@@ -18,8 +12,8 @@ const validation = {
     id: {
       errorMessage: 'Id is required',
       in: ['params'],
-      number: true,
       required: true,
+      string: true,
     },
   },
   get: {
@@ -36,6 +30,20 @@ const validation = {
       in: ['query'],
       number: true,
       required: false,
+    },
+  },
+  login: {
+    email: {
+      errorMessage: 'Email ID invalid',
+      in: ['body'],
+      required: true,
+      string: true,
+    },
+    password: {
+      errorMessage: 'Password is invalid',
+      in: ['body'],
+      required: true,
+      string: true,
     },
   },
   update: {
